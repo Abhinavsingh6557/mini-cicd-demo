@@ -1,0 +1,1 @@
+__pycache__/ *.pyc .venv/git rm -r --cached app/__pycache__
