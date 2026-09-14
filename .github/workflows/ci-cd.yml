@@ -29,7 +29,6 @@ jobs:
   build-and-push:
     needs: test
     runs-on: ubuntu-latest
-    # Only build/push on an actual push to main, not on pull requests
     if: github.event_name == 'push'
     steps:
       - name: Checkout code
@@ -49,3 +48,9 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/mini-cicd-demo:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/mini-cicd-demo:${{ github.sha }}
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
